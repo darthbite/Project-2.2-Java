@@ -42,14 +42,11 @@ public class interpeter {
 				if(qname.equalsIgnoreCase("STN")) {
 					bSTN = true;
 				}
-				if(qname.equalsIgnoreCase("DATE")) {
-					bDATE = true;
+				if(qname.equalsIgnoreCase("TEMP")) {
+					bTEMP = true;
 				}
 				if(qname.equalsIgnoreCase("TIME")) {
 					bTIME = true;
-				}
-				if(qname.equalsIgnoreCase("TEMP")) {
-					bTEMP = true;
 				}
 				if(qname.equalsIgnoreCase("DEWP")) {
 					bDEWP = true;
@@ -63,11 +60,11 @@ public class interpeter {
 				if(qname.equalsIgnoreCase("VISIB")) {
 					bVISIB = true;
 				}
-				if(qname.equalsIgnoreCase("WDSP")) {
-					bWDSP = true;
-				}
 				if(qname.equalsIgnoreCase("PRCP")) {
 					bPRCP = true;
+				}
+				if(qname.equalsIgnoreCase("WDSP")) {
+					bWDSP = true;
 				}
 				if(qname.equalsIgnoreCase("SNDP")) {
 					bSNDP = true;
@@ -77,6 +74,9 @@ public class interpeter {
 				}
 				if(qname.equalsIgnoreCase("CLDC")) {
 					bCLDC = true;
+				}
+				if(qname.equalsIgnoreCase("DATE")) {
+					bDATE = true;
 				}
 				if(qname.equalsIgnoreCase("WNDDIR")) {
 					bWNDDIR = true;
@@ -91,18 +91,18 @@ public class interpeter {
 					System.out.println("Station: " + new String(ch, start, length));		//Prints data from the .xml file that is between the <> <>
 					bSTN = false;
 				}
+				if(bTEMP) {
+					System.out.println("Temperature: " + new String(ch, start, length));
+					bSTN = false;
+				}
+				if(bTIME) {
+					System.out.println("Station: " + new String(ch, start, length));
+					bTIME = false;
+				}
 				if(bDATE) {
 					System.out.println("Date: " + new String(ch, start, length));
 					bDATE = false;
 				}
-				if(bTIME) {
-					System.out.println("Time: " + new String(ch, start, length));
-					bTIME = false;
-				}
-				if(bTEMP) {
-					System.out.println("Temperature: " + new String(ch, start, length));
-					bTEMP = false;
-				}				
 				if(bDEWP) {
 					System.out.println("Dew point: " + new String(ch, start, length));
 					bDEWP = false;
@@ -119,13 +119,17 @@ public class interpeter {
 					System.out.println("Visibility: " + new String(ch, start, length));
 					bVISIB = false;
 				}
+				if(bPRCP) {
+					System.out.println("Rainfall: " + new String(ch, start, length));
+					bPRCP = false;
+				}
 				if(bWDSP) {
 					System.out.println("Wind speed: " + new String(ch, start, length));
 					bWDSP = false;
 				}
-				if(bPRCP) {
-					System.out.println("Rainfall: " + new String(ch, start, length));
-					bPRCP = false;
+				if(bCLDC) {
+					System.out.println("Cloudiness: " + new String(ch, start, length));
+					bCLDC = false;
 				}
 				if(bSNDP) {
 					System.out.println("Snowfall: " + new String(ch, start, length));
@@ -134,10 +138,6 @@ public class interpeter {
 				if(bFRSHTT) {
 					System.out.println("Events: " + new String(ch, start, length));
 					bFRSHTT = false;
-				}
-				if(bCLDC) {
-					System.out.println("Cloudiness: " + new String(ch, start, length));
-					bCLDC = false;
 				}
 				if(bWNDDIR) {
 					System.out.println("Wind direction: " + new String(ch, start, length));
