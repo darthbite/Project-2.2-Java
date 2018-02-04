@@ -6,11 +6,12 @@ import java.io.IOException;
 
 public class MultiThreadedServer implements Runnable{
 
-    protected int          serverPort   = 9999;
+    protected int          serverPort   = 8888;
     protected ServerSocket serverSocket = null;
     protected boolean      isStopped    = false;
     protected Thread       runningThread= null;
     int numberOfThreads = 0;
+    int wantedNumberOfThreads = 750;
 
     public MultiThreadedServer(int port){
         this.serverPort = port;
@@ -24,7 +25,10 @@ public class MultiThreadedServer implements Runnable{
         while(! isStopped()){
             Socket clientSocket = null;
             try {
-                clientSocket = this.serverSocket.accept();
+            	if(numberOfThreads < wantedNumberOfThreads) {
+            		clientSocket = this.serverSocket.accept();
+            		numberOfThreads++; 
+            	}
             } catch (IOException e) {
                 if(isStopped()) {
                     System.out.println("Server Stopped.") ;
@@ -34,8 +38,7 @@ public class MultiThreadedServer implements Runnable{
                     "Error accepting client connection", e);
             }
             new Thread(new WorkerRunnable(clientSocket, "Multithreaded Server")).start();
-            System.out.println("thread started " + numberOfThreads);
-            numberOfThreads++;      
+     
         }
         System.out.println("Server Stopped.") ;
     }
