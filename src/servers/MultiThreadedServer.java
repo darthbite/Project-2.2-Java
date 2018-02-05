@@ -11,7 +11,7 @@ public class MultiThreadedServer implements Runnable{
     protected boolean      isStopped    = false;
     protected Thread       runningThread= null;
     int numberOfThreads = 0;
-    int wantedNumberOfThreads = 750;
+    int wantedNumberOfThreads = 801;
 
     public MultiThreadedServer(int port){
         this.serverPort = port;
